@@ -81,9 +81,6 @@ Spotify allows users to search for songs, artists, and albums and stream music. 
 
 Apple Music allows users to search for music, browse albums and artists, create playlists, and stream full songs. Muzic provides a simpler single-page interface focused specifically on searching, browsing, and viewing information about songs.
 
-### Last.fm
-
-Last.fm allows users to discover songs and artists and view information about music. Muzic differs by providing a simple catalog-style interface powered by the iTunes Search API with album artwork and audio previews available directly from the catalog.
 
 ---
 
