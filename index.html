@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzic | Discover Music</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#">Muzic</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Discover</a></li>
+                <li><a href="#">Genres</a></li>
+                <li><a href="#">Artists</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+   <main>
+    <h1>Discover New Music</h1>
+    <p>Explore the latest tracks, albums, and artists from around the world.</p>
+
+    <section id = "search" aria-labelledby="search-heading">
+        <h2 id="search-heading">Search for Music</h2>
+
+        <form action="#" method="get">
+            <p>
+                <label for="song-search">Song or artist:</label>
+                <input 
+                    id="song-search"
+                    name="query"
+                    type="search"
+                    placeholder="Search songs or artists..."
+                    required
+                >
+            </p>
+
+            <p>
+                <label for="genre">Genre:</label>
+                <select id="genre" name="genre">
+                    <option value="all">All Genres</option>
+                    <option value="pop">Pop</option>
+                    <option value="hip-hop">Hip-Hop</option>
+                    <option value="rnb">R&amp;B</option>
+                    <option value="alternative">Alternative</option>
+                </select>
+            </p>
+
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+    <section id="songs" aria-labelledby="songs-heading">
+        <h2 id="songs-heading">Popular Songs</h2>
+
+        <div class ="song-list">
+            <article class="song">
+                <img src ="images/album1.jpg" alt="Dawn FM Album Cover">
+                <h3>Out of Time</h3>
+                <p>Artist: The Weeknd</p>
+                <p>Album: Dawn FM</p>
+                <p>Genre: Pop</p>
+                <a class="button" href="song.html">View Details</a>
+            </article>
+
+            <article class="song">
+                <img src ="images/album2.jpg" alt="Album 2 Cover">
+                <h3>Hotline Bling</h3>
+                <p>Artist: Drake</p>
+                <p>Album: Take Care</p>
+                <p>Genre: Hip-Hop</p>
+            </article>
+
+            <article class="song">
+                <img src ="images/album3.jpg" alt="Album 3 Cover">
+                <h3>Skyline To</h3>
+                <p>Artist: Frank Ocean</p>
+                <p>Album: Blonde</p>
+                <p>Genre: Pop</p>
+            </article>
+
+            <article class="song">
+                <img src ="images/album4.jpg" alt="Album 4 Cover">
+                <h3>Just</h3>
+                <p>Artist: RadioHead</p>
+                <p>Album: The Bends</p>
+                <p>Genre: Rock</p>
+            </article>
+        </div>
+
+    </section>
+
+   </main> 
+
+   <footer>
+        <p>&copy; 2026 Muzic. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
