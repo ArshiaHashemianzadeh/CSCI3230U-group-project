@@ -1,0 +1,74 @@
+[
+  {
+    "id": "out-of-time",
+    "title": "Out of Time",
+    "artist": "The Weeknd",
+    "album": "Dawn FM",
+    "genre": "R&B",
+    "releaseDate": "2022-01-07",
+    "description": "A smooth blend of R&B and pop from The Weeknd's fifth studio album, showcasing his signature falsetto. It explores love, loss, and the passage of time."
+  },
+  {
+    "id": "hotline-bling",
+    "title": "Hotline Bling",
+    "artist": "Drake",
+    "album": "Views",
+    "genre": "Hip-Hop",
+    "releaseDate": "2015-07-31",
+    "description": "A laid-back, dancehall-tinged single built on a warm organ sample, reflecting on a relationship that has moved on."
+  },
+  {
+    "id": "skyline-to",
+    "title": "Skyline To",
+    "artist": "Frank Ocean",
+    "album": "Blonde",
+    "genre": "R&B",
+    "releaseDate": "2016-08-20",
+    "description": "A hazy, minimalist track from Blonde that drifts through summer imagery and memory."
+  },
+  {
+    "id": "just",
+    "title": "Just",
+    "artist": "Radiohead",
+    "album": "The Bends",
+    "genre": "Alternative",
+    "releaseDate": "1995-03-13",
+    "description": "A guitar-driven alt-rock song with a restless, climbing riff and one of the band's most famous music videos."
+  },
+  {
+    "id": "levitating",
+    "title": "Levitating",
+    "artist": "Dua Lipa",
+    "album": "Future Nostalgia",
+    "genre": "Pop",
+    "releaseDate": "2020-03-27",
+    "description": "A disco-pop track with a bouncing bassline and space-themed lyrics."
+  },
+  {
+    "id": "humble",
+    "title": "HUMBLE.",
+    "artist": "Kendrick Lamar",
+    "album": "DAMN.",
+    "genre": "Hip-Hop",
+    "releaseDate": "2017-03-30",
+    "description": "A sparse, piano-driven beat under a confrontational verse about staying grounded."
+  },
+  {
+    "id": "kill-bill",
+    "title": "Kill Bill",
+    "artist": "SZA",
+    "album": "SOS",
+    "genre": "R&B",
+    "releaseDate": "2022-12-09",
+    "description": "A breezy, retro-tinged R&B song whose sweet melody contrasts with darkly comic lyrics about an ex."
+  },
+  {
+    "id": "mr-brightside",
+    "title": "Mr. Brightside",
+    "artist": "The Killers",
+    "album": "Hot Fuss",
+    "genre": "Alternative",
+    "releaseDate": "2003-09-29",
+    "description": "A breathless indie-rock anthem about jealousy that has never really left the dance floor."
+  }
+]
