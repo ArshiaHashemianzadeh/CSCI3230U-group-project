@@ -270,7 +270,7 @@ footer {
 
 
 .genre-filter {
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .genre-filter label {
@@ -283,4 +283,27 @@ footer {
   border-radius: 4px;
   background: white;
   color: var(--ink);
+}
+
+.sort-control {
+  margin: 15px 0;
+}
+
+.sort-control label {
+  margin-right: 8px;
+}
+
+.sort-control select {
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  color: var(--ink);
+}
+
+.filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
 }
