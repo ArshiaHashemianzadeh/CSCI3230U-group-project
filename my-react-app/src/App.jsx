@@ -6,6 +6,8 @@ import SongList from './components/SongList';
 import SongDetail from './components/SongDetail';
 import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
+import GenreFilter from './components/GenreFilter';
+
 
 export default function App() {
 
@@ -15,6 +17,7 @@ export default function App() {
 
   // Keeps track of what the user types in the search bar
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('All');
 
   function goHome() {
     setSelectedId(null);
@@ -22,15 +25,19 @@ export default function App() {
 
   const selectedSong = songs.find((s) => s.id === selectedId);
 
-  // Filter songs based on title or artist
-  const filteredSongs = songs.filter((song) => {
-    const search = searchTerm.toLowerCase().trim();
+// Filter songs based on search term and selected genre
+const filteredSongs = songs.filter((song) => {
+  const search = searchTerm.toLowerCase().trim();
 
-    return (
-      song.title.toLowerCase().includes(search) ||
-      song.artist.toLowerCase().includes(search)
-    );
-  });
+  const matchesSearch =
+    song.title.toLowerCase().includes(search) ||
+    song.artist.toLowerCase().includes(search);
+
+  const matchesGenre =
+    selectedGenre === 'All' || song.genre === selectedGenre;
+
+  return matchesSearch && matchesGenre;
+});
 
   return (
     <div className="app">
@@ -53,6 +60,11 @@ export default function App() {
             <SearchBar
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
+            />
+            {/* Filter songs by genre */}
+            <GenreFilter
+              selectedGenre={selectedGenre}
+              onGenreChange={setSelectedGenre}
             />
 
             {/* Display only songs matching the search */}

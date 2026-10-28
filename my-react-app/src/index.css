@@ -267,3 +267,20 @@ footer {
   color: #aaa;
   font-size: 16px;
 }
+
+
+.genre-filter {
+  margin: 20px 0;
+}
+
+.genre-filter label {
+  margin-right: 8px;
+}
+
+.genre-filter select {
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: white;
+  color: var(--ink);
+}
