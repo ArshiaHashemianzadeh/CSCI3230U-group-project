@@ -1,3 +1,5 @@
+import SongPreview from './SongPreview';
+
 function formatDate(iso) {
   const [y, m, d] = iso.split('-').map(Number);
   return new Date(y, m - 1, d).toLocaleDateString('en-CA', {
@@ -42,15 +44,7 @@ export default function SongDetail({ song, onBack }) {
             <p>{song.description}</p>
           </section>
 
-          <section aria-labelledby="preview-heading">
-            <h2 id="preview-heading">Song Preview</h2>
-            <p>A song preview will be available once API is connected.</p>
-
-            <button type="button" className="button" disabled>
-              Play Preview
-            </button>
-
-          </section>
+          <SongPreview key={song.id} song={song} />
 
         </div>
       </article>
