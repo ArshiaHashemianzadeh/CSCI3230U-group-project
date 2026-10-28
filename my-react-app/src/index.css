@@ -229,3 +229,41 @@ footer {
 .details dt {
   font-weight: bold;
 }
+
+
+/* Search Bar */
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 550px;
+  padding: 14px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #1c1c1c;
+  border: 1px solid #444;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #1db954;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.no-results {
+  text-align: center;
+  padding: 35px 15px;
+  color: #aaa;
+  font-size: 16px;
+}
