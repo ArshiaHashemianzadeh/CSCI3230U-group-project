@@ -307,3 +307,43 @@ footer {
   gap: 25px;
   flex-wrap: wrap;
 }
+.song-preview {
+  margin-top: calc(var(--space) * 2);
+  padding: var(--space);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.preview-note,
+.preview-time {
+  color: var(--muted);
+}
+
+.preview-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space);
+}
+
+.button.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.song-preview progress {
+  width: 100%;
+  height: 0.75rem;
+  accent-color: var(--accent);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
