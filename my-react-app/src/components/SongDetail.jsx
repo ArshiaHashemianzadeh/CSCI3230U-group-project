@@ -1,3 +1,4 @@
+// AI-assisted (API fields) - see AI-USAGE.md #1
 import SongPreview from './SongPreview';
 
 function formatDate(iso) {
@@ -17,8 +18,14 @@ function formatDuration(ms) {
   return `${m}:${s}`;
 }
 
+// iTunes doesn't send a description, so we write one from the data we have
+function describe(song) {
+  const year = song.releaseDate ? ` (${song.releaseDate.slice(0, 4)})` : '';
+  return `“${song.title}” by ${song.artist} appears on ${song.album}${year}. Genre: ${song.genre}.`;
+}
+
 export default function SongDetail({ song, onBack }) {
-  const year = song.releaseDate.slice(0, 4);
+  const year = song.releaseDate?.slice(0, 4);
 
   return (
     <div className="detail-page">
@@ -40,12 +47,12 @@ export default function SongDetail({ song, onBack }) {
           </div>
 
           <div className="hero-text">
-            <p className="eyebrow">Song</p>
+            <p className="eyebrow">Song{song.explicit && ' · Explicit'}</p>
             <h1>{song.title}</h1>
             <p className="hero-meta">
               <span className="hero-artist">{song.artist}</span>
               {' · '}{song.album}
-              {' · '}{year}
+              {year && <>{' · '}{year}</>}
               {song.durationMs && <>{' · '}{formatDuration(song.durationMs)}</>}
             </p>
           </div>
@@ -56,7 +63,19 @@ export default function SongDetail({ song, onBack }) {
         <div className="detail-body">
           <section aria-labelledby="about-heading">
             <h2 id="about-heading">About this song</h2>
-            <p>{song.description}</p>
+            <p>{song.description ?? describe(song)}</p>
+            {song.appleMusicUrl && (
+              <p>
+                <a
+                  className="apple-link"
+                  href={song.appleMusicUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Listen on Apple Music<span className="visually-hidden"> (opens in a new tab)</span>
+                </a>
+              </p>
+            )}
           </section>
 
           <dl className="details">
@@ -68,10 +87,12 @@ export default function SongDetail({ song, onBack }) {
               <dt>Album</dt>
               <dd>{song.album}</dd>
             </div>
-            <div>
-              <dt>Release date</dt>
-              <dd>{formatDate(song.releaseDate)}</dd>
-            </div>
+            {song.releaseDate && (
+              <div>
+                <dt>Release date</dt>
+                <dd>{formatDate(song.releaseDate)}</dd>
+              </div>
+            )}
             <div>
               <dt>Genre</dt>
               <dd><span className="tag">{song.genre}</span></dd>

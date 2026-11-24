@@ -1,12 +1,12 @@
 import SongCard from './SongCard';
 
-function SongList({ songs, onOpen }) {
+function SongList({ heading = 'Popular Songs', songs, onOpen }) {
   return (
 
     <section aria-labelledby="songs-heading">
 
       <h2 id="songs-heading">
-        Popular Songs <span className="count">({songs.length})</span>
+        {heading} <span className="count">({songs.length})</span>
       </h2>
 
       <ul className="song-list">
@@ -14,7 +14,7 @@ function SongList({ songs, onOpen }) {
           <SongCard key={song.id} song={song} onOpen={onOpen} />
         ))}
       </ul>
-      
+
     </section>
   );
 }

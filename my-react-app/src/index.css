@@ -491,10 +491,37 @@ footer {
   color: var(--muted);
 }
 
-.no-results {
+.no-results,
+.status-message {
   text-align: center;
   padding: 2rem 1rem;
   color: var(--muted);
+}
+
+/* API error box (e.g. rate limit) */
+.error-message {
+  max-width: 32rem;
+  margin: 1.5rem auto;
+  padding: 1rem 1.25rem;
+  border: 1px solid #ff8a8a;
+  border-radius: var(--radius);
+  background: #2a1517;
+  color: #ffd2d2;
+  text-align: center;
+}
+
+.error-message p {
+  margin: 0 0 0.75rem;
+}
+
+.apple-link {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.apple-link:hover,
+.apple-link:focus-visible {
+  color: var(--ink);
 }
 
 /* Filter and sort */

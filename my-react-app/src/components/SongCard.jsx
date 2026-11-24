@@ -15,7 +15,7 @@ export default function SongCard({ song, onOpen }) {
 
       <h3>
         {/* The button stretches over the whole card*/}
-        <button type="button" className="song-open" onClick={() => onOpen(song.id)}>
+        <button type="button" className="song-open" onClick={() => onOpen(song)}>
           {song.title}
         </button>
       </h3>
