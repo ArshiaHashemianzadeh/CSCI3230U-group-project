@@ -1,4 +1,6 @@
-export default function GenreFilter({ selectedGenre, onGenreChange }) {
+// AI-assisted (genres from API data) - see AI-USAGE.md #1
+// `genres` is built from the search results: [{ name: 'Pop', count: 12 }, ...]
+export default function GenreFilter({ genres, selectedGenre, onGenreChange }) {
   return (
     <div className="genre-filter">
       <label htmlFor="genre-select">Filter by Genre:</label>
@@ -9,10 +11,11 @@ export default function GenreFilter({ selectedGenre, onGenreChange }) {
         onChange={(e) => onGenreChange(e.target.value)}
       >
         <option value="All">All Genres</option>
-        <option value="Pop">Pop</option>
-        <option value="Hip-Hop">Hip-Hop</option>
-        <option value="R&B">R&B</option>
-        <option value="Alternative">Alternative</option>
+        {genres.map((genre) => (
+          <option key={genre.name} value={genre.name}>
+            {genre.name} ({genre.count})
+          </option>
+        ))}
       </select>
     </div>
   );
