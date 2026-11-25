@@ -1,3 +1,4 @@
+
 /* Midnight vinyl palette */
 :root {
   --bg: #0f1115;
@@ -88,6 +89,7 @@ nav {
   flex-wrap: wrap;
 }
 
+
 .logo {
   background: none;
   border: 0;
@@ -124,6 +126,10 @@ nav {
 }
 
 .nav-link:hover {
+  color: var(--ink);
+}
+
+.nav-link[aria-current='page'] {
   color: var(--ink);
 }
 
@@ -683,6 +689,11 @@ footer {
   }
 }
 
+.logo,
+.song-open,
+.nav-link,
+.back-button {
+  text-decoration: none; }
 
 /* Favourite button */
 

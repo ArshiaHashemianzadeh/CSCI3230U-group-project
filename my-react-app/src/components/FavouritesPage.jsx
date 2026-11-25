@@ -3,7 +3,6 @@ import SongList from './SongList';
 
 export default function FavouritesPage({
   favourites,
-  onOpen,
   isFavourite,
   onToggleFavourite
 }) {
@@ -21,7 +20,6 @@ export default function FavouritesPage({
         <SongList
           heading="Favourite Songs"
           songs={favourites}
-          onOpen={onOpen}
           isFavourite={isFavourite}
           onToggleFavourite={onToggleFavourite}
         />

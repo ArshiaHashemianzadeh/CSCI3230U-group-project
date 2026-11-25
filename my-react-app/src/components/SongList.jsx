@@ -3,7 +3,6 @@ import SongCard from './SongCard';
 export default function SongList({
   heading = 'Popular Songs',
   songs,
-  onOpen,
   isFavourite,
   onToggleFavourite
 }) {
@@ -18,7 +17,6 @@ export default function SongList({
           <SongCard
             key={song.id}
             song={song}
-            onOpen={onOpen}
             isFavourite={isFavourite(song)}
             onToggleFavourite={onToggleFavourite}
           />

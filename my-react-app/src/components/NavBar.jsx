@@ -1,38 +1,24 @@
-export default function NavBar({
-  onHome,
-  onFavourites,
-  favouriteCount
-}) {
+import { Link, NavLink } from 'react-router-dom';
+export default function NavBar({ favouriteCount }) {
   return (
     <header>
       <nav aria-label="Primary">
-        <button
-          type="button"
-          className="logo"
-          onClick={onHome}
-        >
+
+        <Link to="/" className="logo">
           Muzic
-        </button>
+        </Link>
 
         <ul className="nav-links">
-          <li>
-            <button
-              type="button"
-              className="nav-link"
-              onClick={onHome}
-            >
+           <li>
+            <NavLink to="/" end className="nav-link">
               Songs
-            </button>
-          </li>
+            </NavLink>
+        </li>
 
           <li>
-            <button
-              type="button"
-              className="nav-link"
-              onClick={onFavourites}
-            >
+            <NavLink to="/favourites" className="nav-link">
               Favourites ({favouriteCount})
-            </button>
+            </NavLink>
           </li>
         </ul>
       </nav>

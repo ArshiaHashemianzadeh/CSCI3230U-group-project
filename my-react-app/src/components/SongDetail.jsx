@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom';
+
 // AI-assisted (API fields) - see AI-USAGE.md #1
+
+
 import SongPreview from './SongPreview';
 import ReviewForm from './ReviewForm';
 
@@ -25,15 +29,15 @@ function describe(song) {
   return `“${song.title}” by ${song.artist} appears on ${song.album}${year}. Genre: ${song.genre}.`;
 }
 
-export default function SongDetail({ song, onBack }) {
+export default function SongDetail({ song }) {
   const year = song.releaseDate?.slice(0, 4);
 
   return (
     <div className="detail-page">
       <p>
-        <button type="button" className="back-button" onClick={onBack}>
+        <Link to="/" className="back-button">
           Back to songs
-        </button>
+        </Link>
       </p>
 
       <article className="song-detail">

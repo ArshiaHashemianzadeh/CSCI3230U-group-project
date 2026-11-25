@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
+
 export default function SongCard({
   song,
-  onOpen,
   isFavourite,
   onToggleFavourite
 }) {
@@ -24,13 +25,10 @@ export default function SongCard({
       </div>
 
       <h3>
-        <button
-          type="button"
-          className="song-open"
-          onClick={() => onOpen(song)}
-        >
+        {/* The button stretches over the whole card*/}
+        <Link to={`/songs/${song.id}`} state={{ song }} className="song-open">
           {song.title}
-        </button>
+        </Link>
       </h3>
 
       <p className="artist">
