@@ -1,6 +1,6 @@
 
-// AI-assisted (iTunes API wiring) - see AI-USAGE.md #1
-// AI-assisted (merg routing with favourite)
+// AI-assisted - see AI-USAGE.md #1, #2, #4
+
 import { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';

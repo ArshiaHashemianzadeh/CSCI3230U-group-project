@@ -1,4 +1,4 @@
-// AI-assisted - see AI-USAGE.md #1
+// // AI-assisted - see AI-USAGE.md #1, #7
 //
 // Everything that talks to the iTunes Search API lives in this file.
 // Docs: https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/

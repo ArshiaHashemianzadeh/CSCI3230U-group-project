@@ -1,4 +1,4 @@
-// AI-assisted (updated for routing) - see AI-USAGE.md #N.
+// AI-assisted - see AI-USAGE.md #1, #5
 
 import { render, screen, fireEvent, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'

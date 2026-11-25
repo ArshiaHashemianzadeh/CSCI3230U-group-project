@@ -1,6 +1,5 @@
 
-//AI-assisted (iTunes API wiring) - see AI-USAGE.md #1
-//AI-assisted (transfering App.jsx components to SongPage.jswx) - see AI-USAGE.md 
+// AI-assisted - see AI-USAGE.md #1, #2
 
 import SongList from '../components/SongList';
 import SearchBar from '../components/SearchBar';

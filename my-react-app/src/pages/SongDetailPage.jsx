@@ -1,4 +1,4 @@
-//AI assisted
+// AI-assisted - see AI-USAGE.md #3 
 import { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import SongDetail from '../components/SongDetail';

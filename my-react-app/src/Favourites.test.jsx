@@ -1,4 +1,4 @@
-//AI-assisted ()
+// AI-assisted - see AI-USAGE.md #6
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { vi } from 'vitest';
