@@ -1,8 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
-export default function NavBar({  }) {
+export default function NavBar({ favouriteCount }) {
   return (
     <header>
-
       <nav aria-label="Primary">
 
         <Link to="/" className="logo">
@@ -14,11 +13,14 @@ export default function NavBar({  }) {
             <NavLink to="/" end className="nav-link">
               Songs
             </NavLink>
+        </li>
+
+          <li>
+            <NavLink to="/favourites" className="nav-link">
+              Favourites ({favouriteCount})
+            </NavLink>
           </li>
-
-          {/*Favourites button will go here in future, Account Button and Maybe Reviews */}
         </ul>
-
       </nav>
     </header>
   );

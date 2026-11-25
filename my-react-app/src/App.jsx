@@ -1,5 +1,6 @@
 
 // AI-assisted (iTunes API wiring) - see AI-USAGE.md #1
+// AI-assisted (merg routing with favourite)
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
@@ -7,17 +8,25 @@ import Footer from './components/Footer';
 import SongsPage from './pages/SongsPage';
 import SongDetailPage from './pages/SongDetailPage';
 import NotFound from './pages/NotFound';
+import FavouritesPage from './components/FavouritesPage';
+import useFavourites from './hooks/useFavourites';
 
 export default function App() {
-
   // Keeps track of what the user types in the search bar
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [sortOrder, setSortOrder] = useState('default');
 
+  // Manage favourite songs
+  const {
+    favourites,
+    isFavourite,
+    toggleFavourite
+  } = useFavourites();
+
   return (
     <div className="app">
-      <NavBar />
+      <NavBar favouriteCount={favourites.length} />
 
       <main>
         <Routes>
@@ -31,10 +40,28 @@ export default function App() {
                 setSelectedGenre={setSelectedGenre}
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
+                isFavourite={isFavourite}
+                onToggleFavourite={toggleFavourite}
               />
             }
           />
-          <Route path="/songs/:id" element={<SongDetailPage />} />
+
+          <Route
+            path="/songs/:id"
+            element={<SongDetailPage />}
+          />
+
+          <Route
+            path="/favourites"
+            element={
+              <FavouritesPage
+                favourites={favourites}
+                isFavourite={isFavourite}
+                onToggleFavourite={toggleFavourite}
+              />
+            }
+          />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

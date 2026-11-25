@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 import SongPreview from './SongPreview';
+import ReviewForm from './ReviewForm';
 
 function formatDate(iso) {
   const [y, m, d] = iso.split('-').map(Number);
@@ -104,6 +105,7 @@ export default function SongDetail({ song }) {
           </dl>
         </div>
       </article>
+      <ReviewForm key={song.id} songId={song.id} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 
 //AI-assisted (iTunes API wiring) - see AI-USAGE.md #1
-//AI-assisted (transfering main.jsx components to SongPage.jswx) - see AI-USAGE.md 
+//AI-assisted (transfering App.jsx components to SongPage.jswx) - see AI-USAGE.md 
 
 import SongList from '../components/SongList';
 import SearchBar from '../components/SearchBar';
@@ -16,6 +16,8 @@ export default function SongsPage({
   setSelectedGenre,
   sortOrder,
   setSortOrder,
+  isFavourite,
+  onToggleFavourite,
 }) {
   // Songs come from the iTunes Search API now (debounced + cached inside the hook)
   const { query, songs, loading, error, retry } = useSongSearch(searchTerm);
@@ -82,6 +84,8 @@ export default function SongsPage({
         <SongList
           heading={heading}
           songs={visibleSongs}
+          isFavourite={isFavourite}
+          onToggleFavourite={onToggleFavourite}
         />
       )}
 
