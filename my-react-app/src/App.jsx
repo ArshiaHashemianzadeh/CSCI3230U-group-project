@@ -1,8 +1,8 @@
 
 // AI-assisted (iTunes API wiring) - see AI-USAGE.md #1
 // AI-assisted (merg routing with favourite)
-import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import SongsPage from './pages/SongsPage';
@@ -23,6 +23,11 @@ export default function App() {
     isFavourite,
     toggleFavourite
   } = useFavourites();
+  // start at the top of page
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="app">

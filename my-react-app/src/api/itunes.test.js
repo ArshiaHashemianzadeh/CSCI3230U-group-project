@@ -126,3 +126,19 @@ test('sorts by artist then title', () => {
     'Zed B',
   ])
 })
+// no internet error message
+test('no internet gives a helpful message', async () => {
+  vi.stubGlobal('fetch', vi.fn(async () => { throw new TypeError('Failed to fetch') }))
+  await expect(searchSongs('drake')).rejects.toThrow(/internet connection/)
+})
+// Apple servers are down
+test('a 500 tells the user to try again later', async () => {
+  vi.stubGlobal('fetch', mockFetchStatus(500))
+  await expect(searchSongs('drake')).rejects.toThrow(/try again later/)
+})
+// a request was canceled 
+test('a cancelled request is not turned into an error message', async () => {
+  const abort = new DOMException('aborted', 'AbortError')
+  vi.stubGlobal('fetch', vi.fn(async () => { throw abort }))
+  await expect(searchSongs('drake')).rejects.toBe(abort)
+})
