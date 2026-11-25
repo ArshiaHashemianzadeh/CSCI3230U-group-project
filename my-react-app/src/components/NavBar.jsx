@@ -1,23 +1,40 @@
-export default function NavBar({ onHome }) {
+export default function NavBar({
+  onHome,
+  onFavourites,
+  favouriteCount
+}) {
   return (
     <header>
-
       <nav aria-label="Primary">
-
-        <button type="button" className="logo" onClick={onHome}>
+        <button
+          type="button"
+          className="logo"
+          onClick={onHome}
+        >
           Muzic
         </button>
 
         <ul className="nav-links">
           <li>
-            <button type="button" className="nav-link" onClick={onHome}>
+            <button
+              type="button"
+              className="nav-link"
+              onClick={onHome}
+            >
               Songs
             </button>
           </li>
 
-          {/*Favourites button will go here in future, Account Button and Maybe Reviews */}
+          <li>
+            <button
+              type="button"
+              className="nav-link"
+              onClick={onFavourites}
+            >
+              Favourites ({favouriteCount})
+            </button>
+          </li>
         </ul>
-
       </nav>
     </header>
   );
