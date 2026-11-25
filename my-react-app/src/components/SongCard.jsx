@@ -1,4 +1,6 @@
-export default function SongCard({ song, onOpen }) {
+import { Link } from 'react-router-dom';
+
+export default function SongCard({ song }) {
   return (
     <li className="song">
       <div className="cover-slot">
@@ -15,9 +17,9 @@ export default function SongCard({ song, onOpen }) {
 
       <h3>
         {/* The button stretches over the whole card*/}
-        <button type="button" className="song-open" onClick={() => onOpen(song)}>
+        <Link to={`/songs/${song.id}`} state={{ song }} className="song-open">
           {song.title}
-        </button>
+        </Link>
       </h3>
 
       <p className="artist">

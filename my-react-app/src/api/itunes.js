@@ -126,7 +126,10 @@ export function chartIds(feed) {
 // Top Songs = 2 calls: the chart (ids only), then one lookup for full details.
 // If the chart can't be loaded we fall back to a normal search instead of an empty page.
 export async function getTopSongs({ signal } = {}) {
+  
+
   try {
+    
     const ids = chartIds(await fetchJson(buildChartUrl(), signal));
     if (ids.length === 0) throw new Error('Empty chart');
 
@@ -137,4 +140,9 @@ export async function getTopSongs({ signal } = {}) {
     if (err.name === 'AbortError' || err instanceof RateLimitError) throw err;
     return searchSongs(FALLBACK_TERM, { signal });
   }
+}
+// One song by its iTunes id - used when a /songs/:id URL is opened directly
+export async function getSong(id, { signal } = {}) {
+  const data = await fetchJson(buildLookupUrl([id]), signal);
+  return toSongs(data.results)[0] ?? null; 
 }

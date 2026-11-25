@@ -1,18 +1,19 @@
-export default function NavBar({ onHome }) {
+import { Link, NavLink } from 'react-router-dom';
+export default function NavBar({  }) {
   return (
     <header>
 
       <nav aria-label="Primary">
 
-        <button type="button" className="logo" onClick={onHome}>
+        <Link to="/" className="logo">
           Muzic
-        </button>
+        </Link>
 
         <ul className="nav-links">
-          <li>
-            <button type="button" className="nav-link" onClick={onHome}>
+           <li>
+            <NavLink to="/" end className="nav-link">
               Songs
-            </button>
+            </NavLink>
           </li>
 
           {/*Favourites button will go here in future, Account Button and Maybe Reviews */}
