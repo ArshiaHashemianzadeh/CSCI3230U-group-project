@@ -43,7 +43,7 @@ export default function SongDetailPage() {
         setSong(result);
       } catch (err) {
         if (err.name !== 'AbortError') {
-          setError('Something went wrong while loading the song.');
+          setError(err.message);
         }
       } finally {
         if (!controller.signal.aborted) {
@@ -61,12 +61,12 @@ export default function SongDetailPage() {
   }, [id, stateSong]);
 
   if (loading) {
-    return <p className="status-message">Loading song…</p>;
+    return <p className="status-message" role="status">Loading song…</p>;
   }
 
   if (error) {
     return (
-      <div className="error-message">
+      <div className="error-message" role= "alert">
         <p>{error}</p>
         <Link to="/" className="back-button">
           Back to songs
@@ -78,7 +78,7 @@ export default function SongDetailPage() {
   if (!song) {
     return (
       <div className="detail-page">
-        <p>Song not found.</p>
+        <p>This song doesn't exist or isn't available in Canada.</p>
         <Link to="/" className="back-button">
           Back to songs
         </Link>

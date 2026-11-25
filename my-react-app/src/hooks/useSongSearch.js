@@ -59,7 +59,7 @@ export default function useSongSearch(searchTerm) {
       })
       .catch((err) => {
         if (err.name === 'AbortError') return;
-        setResult({ query, songs: [], error: err.message || 'Something went wrong.' });
+        setResult({ query, songs: [], error: err.message });
       });
 
     return () => controller.abort();

@@ -85,17 +85,58 @@ function checkRateLimit() {
 export function resetRateLimit() {
   recentCalls = [];
 }
-
+//AI-assisted- see AI-USAGE.md #
 async function fetchJson(url, signal) {
   checkRateLimit();
 
-  const response = await fetch(url, { signal });
+  let response;
 
-  // Apple answers 403 (sometimes 429) when we've hit the rate limit
-  if (response.status === 403 || response.status === 429) throw new RateLimitError();
-  if (!response.ok) throw new Error(`The music service returned an error (${response.status}).`);
+  // Handle network errors while keeping aborted requests unchanged.
+  try {
+    response = await fetch(url, { signal });
+  } catch (err) {
+    if (err.name === 'AbortError') throw err;
 
-  return response.json();
+    throw new Error(
+      "Can't reach Apple Music. Please check your internet connection and try again."
+    );
+  }
+
+  // Apple answers 403 (sometimes 429) when we've hit the rate limit.
+  if (response.status === 403 || response.status === 429) {
+    throw new RateLimitError();
+  }
+
+  // Give a specific message for missing resources and server errors.
+  if (response.status === 404) {
+    throw new Error(
+      `Couldn't find that (${response.status}). Please check your search and try again.`
+    );
+  }
+
+  if (response.status >= 500) {
+    throw new Error(
+      `Apple Music is having problems (${response.status}). Please try again later.`
+    );
+  }
+
+  // Handle other unsuccessful HTTP responses.
+  if (!response.ok) {
+    throw new Error(
+      `Apple Music didn't accept the request (${response.status}). Please try again.`
+    );
+  }
+
+  // Handle responses that aren't valid JSON.
+  try {
+    return await response.json();
+  } catch (err) {
+    if (err.name === 'AbortError') throw err;
+
+    throw new Error(
+      "Apple Music sent data we couldn't read. Please try again later."
+    );
+  }
 }
 
 function toSongs(results = []) {
