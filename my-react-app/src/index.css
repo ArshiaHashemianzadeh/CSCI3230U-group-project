@@ -682,3 +682,35 @@ footer {
     transition: none !important;
   }
 }
+
+
+/* Favourite button */
+
+.song .favourite-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.song .favourite-button:hover,
+.song .favourite-button[aria-pressed="true"] {
+  color: var(--accent-text);
+  border-color: var(--accent-text);
+}
+
+.song-open::after {
+  z-index: 1;
+}

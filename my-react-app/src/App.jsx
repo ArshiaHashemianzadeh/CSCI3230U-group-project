@@ -1,4 +1,4 @@
-// AI-assisted (iTunes API wiring) - see AI-USAGE.md #1
+
 import { useState } from 'react';
 import NavBar from './components/NavBar';
 import SongList from './components/SongList';
@@ -7,83 +7,121 @@ import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
 import GenreFilter from './components/GenreFilter';
 import SortControl from './components/SortControl';
+import FavouritesPage from './components/FavouritesPage';
+import useFavourites from './hooks/useFavourites';
 import useSongSearch, { TOP_SONGS } from './hooks/useSongSearch';
 import { getGenreOptions, filterByGenre, sortSongs } from './utils/songs';
 
-
 export default function App() {
-
-  // When a song is selected, open details.
-  // When unselected, return to the catalog.
-  // We keep the whole song (not just its id) so the page still works
-  // even if the search results change underneath it.
   const [selectedSong, setSelectedSong] = useState(null);
-
-  // Keeps track of what the user types in the search bar
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [sortOrder, setSortOrder] = useState('default');
 
-  // Songs come from the iTunes Search API now (debounced + cached inside the hook)
+  const [page, setPage] = useState('songs');
+
+  const {
+    favourites,
+    isFavourite,
+    toggleFavourite
+  } = useFavourites();
+
+  // Load songs from the iTunes API
   const { query, songs, loading, error, retry } = useSongSearch(searchTerm);
 
   function goHome() {
     setSelectedSong(null);
+    setPage('songs');
   }
 
-  // Genres come from the results themselves, so the list grows with the data
+  function showFavourites() {
+    setSelectedSong(null);
+    setPage('favourites');
+  }
+
+  // Genres come from the API results
   const genres = getGenreOptions(songs);
 
-  // If a new search has none of the chosen genre, show everything instead of nothing
-  const activeGenre = genres.some((g) => g.name === selectedGenre) ? selectedGenre : 'All';
+  const activeGenre = genres.some(
+    (genre) => genre.name === selectedGenre
+  ) ? selectedGenre : 'All';
 
-  const visibleSongs = sortSongs(filterByGenre(songs, activeGenre), sortOrder);
+  // Filter and sort the songs
+  const visibleSongs = sortSongs(
+    filterByGenre(songs, activeGenre),
+    sortOrder
+  );
 
   const isTopSongs = query === TOP_SONGS;
-  const heading = isTopSongs ? 'Top Songs in Canada' : `Results for “${query}”`;
+
+  const heading = isTopSongs
+    ? 'Top Songs in Canada'
+    : `Results for “${query}”`;
 
   return (
     <div className="app">
-      <NavBar onHome={goHome} />
+      <NavBar
+        onHome={goHome}
+        onFavourites={showFavourites}
+        favouriteCount={favourites.length}
+      />
 
       <main>
         {selectedSong ? (
-          <SongDetail song={selectedSong} onBack={goHome} />
+          <SongDetail
+            song={selectedSong}
+            onBack={goHome}
+          />
+        ) : page === 'favourites' ? (
+          <FavouritesPage
+            favourites={favourites}
+            onOpen={setSelectedSong}
+            isFavourite={isFavourite}
+            onToggleFavourite={toggleFavourite}
+          />
         ) : (
-
           <div className="catalog">
-
             <h1>Discover New Music</h1>
 
             <p className="opener">
               Explore the latest tracks, albums, and artists from around the world.
             </p>
 
-            {/* Search bar */}
             <SearchBar
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
             />
-            {/* Filter songs by genre */}
-          <div className="filter-controls">
-            <GenreFilter
-              genres={genres}
-              selectedGenre={activeGenre}
-              onGenreChange={setSelectedGenre}
-            />
 
-            <SortControl
-             sortOrder={sortOrder}
-             onSortChange={setSortOrder}
-             />
-          </div>
+            <div className="filter-controls">
+              <GenreFilter
+                genres={genres}
+                selectedGenre={activeGenre}
+                onGenreChange={setSelectedGenre}
+              />
 
-            {/* Screen readers announce loading, errors and empty results */}
-            <div role="status" aria-live="polite" className="status-area">
-              {loading && <p className="status-message">Loading songs…</p>}
+              <SortControl
+                sortOrder={sortOrder}
+                onSortChange={setSortOrder}
+              />
+            </div>
+
+            <div
+              role="status"
+              aria-live="polite"
+              className="status-area"
+            >
+              {loading && (
+                <p className="status-message">
+                  Loading songs…
+                </p>
+              )}
+
               {!loading && !error && songs.length === 0 && (
                 <p className="no-results">
-                  {isTopSongs ? 'No songs found.' : `No songs found for “${query}”.`} Try another search.
+                  {isTopSongs
+                    ? 'No songs found.'
+                    : `No songs found for “${query}”.`}
+                  {' '}Try another search.
                 </p>
               )}
             </div>
@@ -91,7 +129,11 @@ export default function App() {
             {error && (
               <div role="alert" className="error-message">
                 <p>{error}</p>
-                <button type="button" className="button secondary" onClick={retry}>
+                <button
+                  type="button"
+                  className="button secondary"
+                  onClick={retry}
+                >
                   Try again
                 </button>
               </div>
@@ -102,9 +144,10 @@ export default function App() {
                 heading={heading}
                 songs={visibleSongs}
                 onOpen={setSelectedSong}
+                isFavourite={isFavourite}
+                onToggleFavourite={toggleFavourite}
               />
             )}
-
           </div>
         )}
       </main>
