@@ -56,3 +56,37 @@ Show me how I have to implement this step by step and how it works. I don't have
   - Tests use a fake `fetch` (no real network). Also fixed 3 tests that were already failing
     because they clicked a "View Details" button that no longer existed.
   - <FILL IN: what you reviewed/changed yourself and why you believe it is correct>
+```
+
+### #2 - New colour palette, song card, and song details page redesign
+- **Date:** 2026-11-23
+- **Member:** Akash Sayanthan
+- **Tool / model:** Claude
+- **Files:**
+  - changed: `my-react-app/src/index.css`, `my-react-app/src/components/SongCard.jsx`,
+    `my-react-app/src/components/SongDetail.jsx`, `my-react-app/src/components/SongPreview.jsx`,
+    `my-react-app/src/App.test.jsx`
+- **Prompt (verbatim):**
+
+  ```
+  i have decided on this colour palette in the picture provided. What adjustments would you recommend in order to implement this? Take me step by step please.
+  ```
+
+  Follow-up prompts, in order:
+  ```
+  I want to adjust my songcard to behave similarily to my movie catalog, what things would i need to change from my moviecard.jsx and moviedetails.jsx to fit this. 
+  ```
+
+  - **What it produced & what I changed:**
+  - `index.css`: replaced the mixed light/dark styles with one dark "Midnight vinyl" palette
+    using CSS variables.
+  - `SongCard.jsx`: streaming-style card. The whole card is clickable (the title button
+    stretches over the card), with a genre tag on the cover and a play hint on hover. 
+  - `SongDetail.jsx`: "album hero" layout with a tinted header (cover, title, artist · album ·
+    year · length), the preview player under it, and the description and details below.
+  - `SongPreview.jsx`: restyled the simulated preview into a player bar with a round
+    play/pause button, progress bar and restart button. 
+  - `App.test.jsx`: updated the tests that clicked "View Details" to click the song card
+    instead. 
+  - I reviewed all changes and adjusted minor details AI provided.
+  
