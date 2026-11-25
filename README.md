@@ -2,6 +2,7 @@
 
 Muzic is a music discovery app built with React and Vite for CSCI 3230U. Users can browse a catalog of songs, search, filter by genre, sort the list, and open any song to see its details and play a preview.
 
+Web: https://csci3230u-group-project-muzic.netlify.app/
 Repository: https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project
 
 ## Running the app
