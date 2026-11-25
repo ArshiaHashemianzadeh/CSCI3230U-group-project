@@ -1,22 +1,24 @@
 # Muzic
- 
+
 Muzic is a music discovery app built with React and Vite for CSCI 3230U. Users can browse a catalog of songs, search, filter by genre, sort the list, and open any song to see its details and play a preview.
- 
+
+Repository: https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project
+
 ## Running the app
- 
+
 You need [Node.js](https://nodejs.org) installed.
- 
+
 ```bash
 cd my-react-app
 npm install
 npm run dev
 ```
- 
+
 Then open the link shown in the terminal (usually http://localhost:5173).
 Press `Ctrl + C` in the terminal to stop the server.
- 
+
 ## Features
- 
+
 - Browse a catalog of songs, shown as cards
 - **Search** songs by name or artist
 - **Filter** the catalog by genre
@@ -24,8 +26,9 @@ Press `Ctrl + C` in the terminal to stop the server.
 - Open a song to see its details (artist, album, release date, genre, description)
 - **Song preview** on the details page (works on mock data, without an API)
 - Go back to the catalog with the "Back to songs" button or the nav bar
+
 ## Project structure
- 
+
 ```
 my-react-app/
 ├── index.html            the single HTML page React renders into
@@ -46,11 +49,10 @@ my-react-app/
         ├── SortControl.jsx
         ├── SearchBar.jsx
         └── Footer.jsx
-        
 ```
- 
+
 ## Components
- 
+
 | Component | What it does | Props |
 |---|---|---|
 | `App` | Holds the state and decides whether to show the catalog or a song's details | none |
@@ -61,12 +63,11 @@ my-react-app/
 | `Footer` | Copyright line | none |
 | `SearchBar` | Search input, genre filter and sort controls | `searchTerm`, `onSearchChange` |
 | `Preview component` | Plays the song preview on the details page | `song` |
- 
 
 ## Mock data
- 
+
 Songs live in `src/data/songs.json`. Each song looks like this:
- 
+
 ```json
 {
   "id": "out-of-time",
@@ -78,6 +79,21 @@ Songs live in `src/data/songs.json`. Each song looks like this:
   "description": "..."
 }
 ```
- 
+
 To add a song, add another object to the array with a **unique `id`**.
- 
+
+## Contributions
+
+| Team member | GitHub | What they did | Pull requests |
+|---|---|---|---|
+| Arshia Hashemianzadeh | [@ArshiaHashemianzadeh](https://github.com/ArshiaHashemianzadeh) | Project proposal README, song preview, tests for search/filter/sort/song page/preview, routing, M3 tests, accessibility improvements | [#6](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/6), [#12](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/12), [#15](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/15), [#25](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/25), [#26](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/26), [#27](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/27), [#28](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/28) |
+| Akash Sayanthan | [@akashsayanthan](https://github.com/akashsayanthan) | Set up the React app with the catalog and song detail page, new colour palette and visual improvements | [#7](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/7), [#20](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/20) |
+| Mohammad Usman | [@MoUsmanCode](https://github.com/MoUsmanCode) | Genre filtering, sorting and layout improvements, favourites, song rating and review form | [#9](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/9), [#10](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/10), [#22](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/22), [#23](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/23) |
+| Himmat Basra | [@Himmat16](https://github.com/Himmat16) | Connected the iTunes Search API, replacing the mock JSON data | [#21](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/21) |
+
+## References
+
+- iTunes Search API documentation (Apple): https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html
+- iTunes Search API endpoint used by the app: https://itunes.apple.com/search
+- React documentation: https://react.dev
+- Vite documentation: https://vite.dev
