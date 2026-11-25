@@ -1,5 +1,6 @@
 // AI-assisted (API fields) - see AI-USAGE.md #1
 import SongPreview from './SongPreview';
+import ReviewForm from './ReviewForm';
 
 function formatDate(iso) {
   const [y, m, d] = iso.split('-').map(Number);
@@ -100,6 +101,7 @@ export default function SongDetail({ song, onBack }) {
           </dl>
         </div>
       </article>
+      <ReviewForm key={song.id} songId={song.id} />
     </div>
   );
 }
