@@ -78,6 +78,7 @@ export default function SongDetailPage() {
   if (!song) {
     return (
       <div className="detail-page">
+        <h1>Song not found</h1>
         <p>This song doesn't exist or isn't available in Canada.</p>
         <Link to="/" className="back-button">
           Back to songs

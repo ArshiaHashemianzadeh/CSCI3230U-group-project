@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 // AI-assisted (API fields) - see AI-USAGE.md #1
-
 
 import SongPreview from './SongPreview';
 import ReviewForm from './ReviewForm';
@@ -31,6 +31,11 @@ function describe(song) {
 
 export default function SongDetail({ song }) {
   const year = song.releaseDate?.slice(0, 4);
+  const titleRef = useRef(null);
+  //move focus
+   useEffect(() => {
+    titleRef.current?.focus();
+  }, [song.id]);
 
   return (
     <div className="detail-page">
