@@ -1,4 +1,4 @@
-// AI-assisted (real audio from previewUrl) - see AI-USAGE.md #1
+// AI-assisted (real audio from previewUrl) - see AI-USAGE.md #8
 import { useRef, useState } from 'react';
 
 // iTunes previews are about 30 seconds; we use the real length once the audio loads

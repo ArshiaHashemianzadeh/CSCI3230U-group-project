@@ -1,3 +1,4 @@
+//AI-assisted (React component for song card) - see AI-USAGE.md #8
 import { Link } from 'react-router-dom';
 
 export default function SongCard({

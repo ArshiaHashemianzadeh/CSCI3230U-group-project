@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
-// AI-assisted (API fields) - see AI-USAGE.md #1
+// AI-assisted (API fields) - see AI-USAGE.md #8
 
 import SongPreview from './SongPreview';
 import ReviewForm from './ReviewForm';
