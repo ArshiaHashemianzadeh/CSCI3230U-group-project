@@ -1,9 +1,9 @@
 # Muzic
 
-Muzic is a music discovery app built with React and Vite for CSCI 3230U. Users can browse a catalog of songs, search, filter by genre, sort the list, and open any song to see its details and play a preview.
+Muzic is a music discovery app built with React and Vite for CSCI 3230U. It pulls live songs from the **iTunes Search API**, so you can browse Apple's current Top Songs chart, search any song or artist, filter by genre, sort the results, open a song on its own page to play a preview, save favourites, and rate and review songs.
 
-Web: https://csci3230u-group-project-muzic.netlify.app/
-Repository: https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project
+**Live site:** https://csci3230u-group-project-muzic.netlify.app/
+**Repository:** https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project
 
 ## Running the app
 
@@ -18,83 +18,137 @@ npm run dev
 Then open the link shown in the terminal (usually http://localhost:5173).
 Press `Ctrl + C` in the terminal to stop the server.
 
+| Command | What it does |
+|---|---|
+| `npm run dev` | Starts the development server |
+| `npm run build` | Builds the production site into `dist/` |
+| `npm run preview` | Serves the production build locally |
+| `npm test` | Runs the tests in watch mode (Vitest) |
+| `npm run test:run` | Runs the tests once |
+
+No API key or `.env` file is needed, because the iTunes Search API is public.
+
 ## Features
 
-- Browse a catalog of songs, shown as cards
-- **Search** songs by name or artist
-- **Filter** the catalog by genre
-- **Sort** the song list
-- Open a song to see its details (artist, album, release date, genre, description)
-- **Song preview** on the details page (works on mock data, without an API)
-- Go back to the catalog with the "Back to songs" button or the nav bar
+- **Live data:** With the search box empty, the app shows Apple's Top Songs chart for Canada. Typing searches the full iTunes catalogue.
+- **Search** by song or artist. Input is debounced, so typing "radiohead" makes 1 API call, not 9.
+- **Filter** by genre. The genre list is built from the songs the API actually returned, with a count for each genre.
+- **Sort** by most relevant (API order), title A–Z, title Z–A, artist, newest or oldest.
+- **Song detail page** at its own URL (`/songs/:id`) with cover art, artist, album, genre, release date, length, a 30-second **preview** and a link to Apple Music.
+- **Favourites:** Add or remove songs with the heart button. Favourites are saved in `localStorage` and listed on the `/favourites` page, and the nav bar shows a count.
+- **Rate and review form:** A controlled form on the detail page saves a 1–5 rating and a short review per song to `localStorage`.
+- **Loading and error states**, including a "Try again" button and clear error messages (no connection, rate limit, server error).
+- **404 page** for unknown URLs.
+
+## Routes
+
+| URL | Page |
+|---|---|
+| `/` | Song catalogue with search, filter and sort |
+| `/songs/:id` | One song's details (`id` is the iTunes track id) |
+| `/favourites` | Your saved songs |
+| anything else | Not found page |
+
+Deep links work on the live site. For example, a `/songs/<id>` URL can be opened or refreshed directly, because `public/_redirects` tells Netlify to serve `index.html` for every path (the SPA fallback):
+
+```
+/*    /index.html   200
+```
+
+If the user arrives from the catalogue, the detail page uses the song it was given. If the URL is opened directly, it reads the id with `useParams` and fetches the song from the API.
+
+## Live web service: iTunes Search API
+
+All API code lives in `src/api/itunes.js`.
+
+- **Endpoints used:** `/search` (searching), the Top Songs RSS feed plus `/lookup` (the default chart), and `/lookup?id=` (one song by id for the detail page).
+- **Mapped at the boundary:** `mapTrack()` turns each raw iTunes result (`trackName`, `artistName`, `artworkUrl100`, and so on) into the app's own song shape (`title`, `artist`, `artwork`, and so on). Components never see the API's field names.
+- **Fetch on interaction, with cancel:** `useSongSearch` (`src/hooks/useSongSearch.js`) fetches when the debounced search term changes. Each request has an `AbortController`, and an older, slower request is cancelled when a new search starts, so stale results can't replace newer ones.
+- **Loading and error states:** The hook returns `loading`, `error` and `retry`, and the page shows a loading message, an error message with a "Try again" button, or the results.
+- **Rate limits:** Apple allows about 20 calls per minute. The app stays under the limit by debouncing, caching results it has already fetched, and capping itself at 18 calls per minute. A 403 or 429 response shows a "please wait a minute" message.
+
+## Accessibility and responsiveness
+
+- Semantic landmarks (`header`, `nav`, `main`, `footer`) and a labelled primary navigation
+- Every form control has a `<label>`; the review form uses `role="status"` to announce when a review is saved
+- All controls work with the keyboard, with visible focus styles
+- When the page changes, the app scrolls to the top and moves focus to the song title
+- Favourite buttons have descriptive labels and pressed state
+- The layout is responsive, so the song grid and detail page adapt from phone to desktop widths
+- Checked with Lighthouse (Accessibility score: __ / 100) and the flagged issues were fixed
+
+## Tests
+
+Tests use **Vitest** and **React Testing Library** with a mocked iTunes API (`src/test/mockItunes.js`), so they never make real network calls. Run them with `npm run test:run` (38 tests).
+
+| File | What it covers | Written by |
+|---|---|---|
+| `src/api/itunes.test.js` | URL building, mapping iTunes results to our song shape, artwork size, de-duplication, chart order, rate limiting and error messages | Himmat |
+| `src/App.test.jsx` | Loading and error states, search, genre filter, sort, routing to a song's detail page, preview, and the 404 page | Arshia |
+| `src/Favourites.test.jsx` | Adding and removing favourites, the favourites page, and saving to `localStorage` | Mohammad, updated by Arshia for routing |
 
 ## Project structure
 
 ```
 my-react-app/
-├── index.html            the single HTML page React renders into
-├── package.json          dependencies and npm scripts
-├── vite.config.js        Vite settings
+├── index.html                 the single HTML page React renders into
+├── package.json               dependencies and npm scripts
+├── vite.config.js             Vite and Vitest settings
+├── public/
+│   └── _redirects             Netlify SPA fallback for deep links
 └── src/
-    ├── main.jsx          entry point, renders <App /> into #root
-    ├── App.jsx           main component, holds the app's state
-    ├── index.css         all styles
-    ├── data/
-    │   └── songs.json    mock song data
-    └── components/
-        ├── NavBar.jsx
-        ├── SongList.jsx
-        ├── SongCard.jsx
-        ├── SongDetail.jsx
-        ├── GenreFilter.jsx
-        ├── SortControl.jsx
-        ├── SearchBar.jsx
-        └── Footer.jsx
+    ├── main.jsx               entry point, wraps <App /> in <BrowserRouter>
+    ├── App.jsx                routes, plus the search/filter/sort and favourites state
+    ├── index.css              all styles
+    ├── api/
+    │   └── itunes.js          every call to the iTunes API, plus mapTrack()
+    ├── hooks/
+    │   ├── useSongSearch.js   fetch with debounce, cache, AbortController, loading/error
+    │   └── useFavourites.js   favourites saved in localStorage
+    ├── utils/
+    │   └── songs.js           genre options, genre filter, sort
+    ├── pages/
+    │   ├── SongsPage.jsx      the catalogue page
+    │   ├── SongDetailPage.jsx /songs/:id (uses useParams)
+    │   └── NotFound.jsx       404 page
+    ├── components/
+    │   ├── NavBar.jsx         logo, Songs and Favourites links
+    │   ├── SearchBar.jsx      search input
+    │   ├── GenreFilter.jsx    genre dropdown
+    │   ├── SortControl.jsx    sort dropdown
+    │   ├── SongList.jsx       song count and the grid of cards
+    │   ├── SongCard.jsx       one song, links to its detail page
+    │   ├── SongDetail.jsx     full details for one song
+    │   ├── SongPreview.jsx    30-second audio preview
+    │   ├── ReviewForm.jsx     controlled rating and review form
+    │   ├── FavouritesPage.jsx /favourites
+    │   └── Footer.jsx
+    └── test/
+        ├── mockItunes.js      fake API responses for tests
+        └── songs.json         sample songs (test data only)
 ```
-
-## Components
-
-| Component | What it does | Props |
-|---|---|---|
-| `App` | Holds the state and decides whether to show the catalog or a song's details | none |
-| `NavBar` | Top bar with the logo and a "Songs" link back to the catalog | `onHome` |
-| `SongList` | Shows the song count and uses `.map()` to render a `SongCard` for each song (keyed by `song.id`) | `songs`, `onOpen` |
-| `SongCard` | One song's title, genre and artist, plus a "View Details" button | `song`, `onOpen` |
-| `SongDetail` | Full details for the selected song and a "Back to songs" button | `song`, `onBack` |
-| `Footer` | Copyright line | none |
-| `SearchBar` | Search input, genre filter and sort controls | `searchTerm`, `onSearchChange` |
-| `Preview component` | Plays the song preview on the details page | `song` |
-
-## Mock data
-
-Songs live in `src/data/songs.json`. Each song looks like this:
-
-```json
-{
-  "id": "out-of-time",
-  "title": "Out of Time",
-  "artist": "The Weeknd",
-  "album": "Dawn FM",
-  "genre": "R&B",
-  "releaseDate": "2022-01-07",
-  "description": "..."
-}
-```
-
-To add a song, add another object to the array with a **unique `id`**.
 
 ## Contributions
 
-| Team member | GitHub | What they did | Pull requests |
+| Team member | GitHub | Vertical slice and work | Pull requests |
 |---|---|---|---|
-| Arshia Hashemianzadeh | [@ArshiaHashemianzadeh](https://github.com/ArshiaHashemianzadeh) | Song preview, tests for search/filter/sort/song page/preview, routing, M3 tests, accessibility improvements | [#12](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/12), [#15](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/15), [#25](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/25), [#26](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/26), [#27](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/27), [#28](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/28) |
-| Akash Sayanthan | [@akashsayanthan](https://github.com/akashsayanthan) | Set up the React app with the catalog and song detail page, new colour palette and visual improvements | [#7](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/7), [#20](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/20) |
-| Mohammad Usman | [@MoUsmanCode](https://github.com/MoUsmanCode) | Genre filtering, sorting and layout improvements, favourites, song rating and review form | [#9](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/9), [#10](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/10), [#22](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/22), [#23](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/23) |
-| Himmat Basra | [@Himmat16](https://github.com/Himmat16) | Wrote the project proposal, connected the iTunes Search API, replacing the mock JSON data | [#21](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/21) |
+| Arshia Hashemianzadeh | [@ArshiaHashemianzadeh](https://github.com/ArshiaHashemianzadeh) (also commits as Ash329) | Song preview; React Router routing (`/`, `/songs/:id`, `/favourites`, 404); tests for search, filter, sort, the song page and preview (M2, updated for routing and the live API in M3); accessibility (labels, keyboard navigation, focus management); Netlify deployment and SPA redirect | [#12](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/12), [#15](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/15), [#25](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/25), [#26](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/26), [#27](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/27), [#28](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/28) |
+| Akash Sayanthan | [@akashsayanthan](https://github.com/akashsayanthan) | Set up the React app with the catalogue and song detail page; colour palette; song card and details page redesign | [#7](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/7), [#20](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/20) |
+| Mohammad Usman | [@MoUsmanCode](https://github.com/MoUsmanCode) | Genre filtering; sorting and layout; favourites with `localStorage`; song rating and review form | [#9](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/9), [#10](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/10), [#22](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/22), [#23](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/23) |
+| Himmat Basra | [@Himmat16](https://github.com/Himmat16) | Project proposal; connected the iTunes Search API (replacing the mock JSON), with cover art, API genres and previews; API tests (`itunes.test.js`) and the mocked API used by the tests | [#21](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/21) |
+
+Work was planned as GitHub Issues on the project board, built on branches and merged through pull requests.
+
+## AI usage
+
+AI was used for parts of this milestone. Every use is logged in [`AI-USAGE.md`](AI-USAGE.md) with the verbatim prompts, the files involved and what we kept or changed. Code that AI helped write is marked with `// AI-assisted - see AI-USAGE.md #<n>`.
 
 ## References
 
 - iTunes Search API documentation (Apple): https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html
-- iTunes Search API endpoint used by the app: https://itunes.apple.com/search
+- iTunes Search API endpoint: https://itunes.apple.com/search
 - React documentation: https://react.dev
+- React Router documentation: https://reactrouter.com
 - Vite documentation: https://vite.dev
+- Vitest documentation: https://vitest.dev
+- Netlify redirects (SPA fallback): https://docs.netlify.com/routing/redirects/
