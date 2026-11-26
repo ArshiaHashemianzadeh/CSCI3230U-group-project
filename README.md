@@ -70,7 +70,7 @@ All API code lives in `src/api/itunes.js`.
 ## Accessibility and responsiveness
 
 - Semantic landmarks (`header`, `nav`, `main`, `footer`) and a labelled primary navigation
-- Every form control has a `<label>`; the review form uses `role="status"` to announce when a review is saved
+- Every form control has a `<label>`, and the review form uses `role="status"` to announce when a review is saved
 - All controls work with the keyboard, with visible focus styles
 - When the page changes, the app scrolls to the top and moves focus to the song title
 - Favourite buttons have descriptive labels and pressed state
@@ -130,12 +130,12 @@ my-react-app/
 
 ## Contributions
 
-| Team member | GitHub | Vertical slice and work | Pull requests |
+| Team member | GitHub | What they did | Pull requests |
 |---|---|---|---|
-| Arshia Hashemianzadeh | [@ArshiaHashemianzadeh](https://github.com/ArshiaHashemianzadeh) (also commits as Ash329) | Song preview; React Router routing (`/`, `/songs/:id`, `/favourites`, 404); tests for search, filter, sort, the song page and preview (M2, updated for routing and the live API in M3); accessibility (labels, keyboard navigation, focus management); Netlify deployment and SPA redirect | [#12](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/12), [#15](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/15), [#25](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/25), [#26](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/26), [#27](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/27), [#28](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/28) |
-| Akash Sayanthan | [@akashsayanthan](https://github.com/akashsayanthan) | Set up the React app with the catalogue and song detail page; colour palette; song card and details page redesign | [#7](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/7), [#20](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/20) |
-| Mohammad Usman | [@MoUsmanCode](https://github.com/MoUsmanCode) | Genre filtering; sorting and layout; favourites with `localStorage`; song rating and review form | [#9](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/9), [#10](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/10), [#22](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/22), [#23](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/23) |
-| Himmat Basra | [@Himmat16](https://github.com/Himmat16) | Project proposal; connected the iTunes Search API (replacing the mock JSON), with cover art, API genres and previews; API tests (`itunes.test.js`) and the mocked API used by the tests | [#21](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/21) |
+| Arshia Hashemianzadeh | [@ArshiaHashemianzadeh](https://github.com/ArshiaHashemianzadeh), [@Ash329](https://github.com/Ash329) | Song preview, routing, tests, accessibility, deployment | [#12](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/12), [#15](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/15), [#25](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/25), [#26](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/26), [#27](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/27), [#28](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/28) |
+| Akash Sayanthan | [@akashsayanthan](https://github.com/akashsayanthan) | React app setup, catalogue and song detail page, colour palette and redesign | [#7](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/7), [#20](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/20) |
+| Mohammad Usman | [@MoUsmanCode](https://github.com/MoUsmanCode) | Genre filter, sorting, favourites, rating and review form | [#9](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/9), [#10](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/10), [#22](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/22), [#23](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/23) |
+| Himmat Basra | [@Himmat16](https://github.com/Himmat16) | Project proposal, iTunes API integration, API tests | [#21](https://github.com/ArshiaHashemianzadeh/CSCI3230U-group-project/pull/21) |
 
 Work was planned as GitHub Issues on the project board, built on branches and merged through pull requests.
 
